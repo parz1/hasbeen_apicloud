@@ -8,10 +8,59 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     <style>
-        .empty{ text-align: center; padding: 120px 0; }
+    .leftWaterFall{
+      display: block;
+      width: 50%;
+      background-color: #eee;
+      height: 300px;
+      padding: 0px;
+      float: left;
+      margin-left: 0;
+    }
+    .rightWaterFall{
+      display: block;
+      width: 50%;
+      background-color: #000;
+      padding: 0px;
+      height: 200px;
+      float: right;
+      margin-right: 0;
+    }
+    .dymc{
+      width: 100%;
+    }
     </style>
 </head>
 <body>
-    <div class="empty">开发</div>
+  <div class="dymc">
+    <ul class="leftWaterFall">
+      <li>111</li>
+      <li>222</li>
+    </ul>
+    <ul class="rightWaterFall">
+      <li>123</li>
+    </ul>
+
+  </div>
 </body>
+<script type="text/javascript">
+var datas = [];
+var images = [];
+apiready = function(){
+  init();
+}
+
+function init(){
+  datas = [
+    {
+      "title":"港岛记"
+    }
+  ];
+}
+
+function waterfall(){
+
+}
+
+</script>
 </html>

@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     <style>
+    ul li span{
+      margin: 0;
+      padding: 0;
+    }
     .head{
       width: 100%;
       height: 30%;
@@ -33,7 +37,6 @@
       opacity: 0.8;
     }
     .username{
-      position: absolute;
       display: inline-block;
       text-align: center;
       width: 100%;
@@ -44,8 +47,8 @@
       font-family: sans-serif;
     }
     .mes-nav{
-      position: absolute;
-      margin-top: 15%;
+      position: relative;
+      margin-top: 10px;
       width: 100%;
     }
     .mes-nav li{
@@ -53,80 +56,37 @@
       text-align: center;
       float: left;
       width: 50%;
-      background-color: #eee;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      color: #666;
+      background-color: transparent;
+    }
+    .blueline{
+      width: 50%;
+      height: 2px;
+      background-color: #666;
+      margin-top: 40px;
     }
     </style>
 </head>
 <body>
   <div class="head">
-    <img class="imgbg" src="../image/bghead.png" alt="yes">
+    <img class="imgbg" src="../image/bghead.png" alt="TITLE">
   </div>
   <img class="iconhead" src="../image/bgpic.png" alt="icon">
   <div class="username">parzi</div>
-  <div class="">
     <ul class="mes-nav">
       <li>帖子</li>
       <li>收藏</li>
     </ul>
-  </div>
+    <div class="blueline"></div>
+    <div style="height:900px;">
+    </div>
 </body>
 <script type="text/javascript">
 apiready = function(){
-  var NVNavigationBar = api.require('NVNavigationBar');
-NVNavigationBar.open({
-  rect: {
-       x: 0,
-       y: 300,
-       w: api.frameWidth,
-       h: 900
-  },
- styles: {
-       orientation: 'horizontal',
-       bg: '#6b6b6b',
-       bgAlpha: 1,
-       font: {
-       size: 14,
-       sizeSelected: 18,
-       color: '#FFFFFF',
-       colorSelected: '#ff0000',
-       alpha: 1
-       },
-       itemSize: {
-           w: 90,
-           h: 44
-       }
- },
-  items: [{
-     title: '标题一',
-     bg: '#FFE7BA',
-     bgSelected: '#ff00000'
-     },{
-     title: '标题二',
-     bg: '#FFE1FF',
-     bgSelected: '#FFA500'
-     },{
-     title: '标题三',
-     bg: '#FFAEB9',
-     bgSelected: '#FFA500'
-     },{
-     title: '标题四',
-     bg: '#CDCD00',
-     bgSelected: '#FFA500'
-     },{
-     title: '标题五',
-     bg: '#BBFFFF',
-     bgSelected: '#FFA500'
-     },{
-     title: '标题六',
-     bg: '#436EEE',
-     bgSelected: '#FFA500'
-     }],
-     selectedIndex: 1,
-     fixedOn: api.frameName,
-     id: 'first'
-}, function(ret, err) {
-  api.alert({msg:JSON.stringify(ret)});
-});
+
 }
 
 </script>
