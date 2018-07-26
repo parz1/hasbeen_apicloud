@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>底部导航</title>
+    <title>潮人去哪</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css"/>
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
     <style>
-        header{ background-color: #666;}
-        header ul li:nth-child(1) {height: 30px; line-height: 30px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px;  background-color: #fff;box-shadow: 0 2px 0 #666;}
-        header ul li:after {
+        header{ background-color: #fff;z-index: 999;border: 0;}
+        header ul li{ height: 40px; line-height: 40px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px; border: 0; }
+        header ul li.active{ display: block; position: relative;}
+        .usertitle{
+          width: 100%;
+          height: 100%;
+          background-color: #eee;
         }
-        header ul li:nth-child(1).active{ display: block; position: relative;}
-        header ul li:nth-child(2){ display: none; position: relative;}
-        header ul li:nth-child(3){ display: none; position: relative;}
-        #footer{  background-color: #f2f2f2; }
-        #footer ul li{  padding-top: 36px; padding-bottom: 4px; background: url() no-repeat center 2px; background-size: auto 30px; text-align: center; }
-        #footer ul li.active{ color: #6ab494; }
-        #footer ul li:nth-child(1){ background-image: url(./image/bottombtn0101.png); }
-        #footer ul li:nth-child(2){ background-image: url(./image/bottombtn0201.png); }
-        #footer ul li:nth-child(3){ background-image: url(./image/bottombtn0301.png); }
+        #footer{  background-color: #f2f2f2; box-shadow: 0 2px 2px #666; }
+        #footer ul li{  padding-top: 36px; padding-bottom: 4px; background: url() no-repeat center 2px; background-size: auto 30px; text-align: center;}
+        #footer ul li.active{ color: #6495ED; }
+        #footer ul li:nth-child(1){ background-image: url(./image/bottombtn0101.png); background-position: center 5px;}
+        #footer ul li:nth-child(2){ background-image: url(./image/bottombtn0201.png); background-position: center 5px; }
+        #footer ul li:nth-child(3){ background-image: url(./image/bottombtn0301.png); background-position: center 5px; }
         #footer ul li:nth-child(1).active{ background-image: url(./image/bottombtn0102.png); }
         #footer ul li:nth-child(2).active{ background-image: url(./image/bottombtn0202.png); }
         #footer ul li:nth-child(3).active{ background-image: url(./image/bottombtn0302.png); }
+        .border-t:before, .border-b:after{
+          display: none;
+        }
         .flex-con{
           overflow: auto
         }
         .header-nav{
           font-size: 18px;
-          font-weight: bold;
+          font-weight: 800;
           display: inline-block;
           text-align: center;
           width: 30%;
@@ -37,16 +41,40 @@
         .header-map{
           float: left;
           width: 50%;
+          position: relative;
+        }
+        .tri{
+          position: absolute;
+          top:30px;
+          left: 20px;
+          width: 0;
+          height: 0;
+          border: 10px solid #6495ED;
+          border-top: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
         }
         .header-dymc{
           float: left;
           width: 50%;
+          position: relative;
+        }
+        .line{
+          position: absolute;
+          height: 1px;
+          left: -350%;
+          width: 700%;
+          background-color: #6495ED;
         }
         .header-map.active{
           color: #6495ED;
         }
         .header-dymc.active{
           color: #6495ED;
+        }
+        #main{
+          z-index: 99999;
+          overflow: visible;
         }
     </style>
 </head>
@@ -56,16 +84,22 @@
         <ul>
             <li class="border-b active" >
               <div class="header-nav">
-                <div class="header-map active">
+                <div tapmode="hover" class="header-map active" onclick="randomSwitchTitle( this );">
                   地图
+                  <div class="tri"></div>
                 </div>
-                <div class="header-dymc">
+                <div tapmode="hover" class="header-dymc" onclick="randomSwitchTitle( this );">
                   动态
+                  <div class="line"></div>
                 </div>
               </div>
             </li>
             <li class="border-b" >发现</li>
-            <li class="border-b" >我</li>
+            <li class="border-b" >
+              <div class="usertitle">
+
+              </div>
+            </li>
         </ul>
     </header>
     <div id="main" class="flex-con">
@@ -84,22 +118,23 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function () {
-      var header = document.querySelector('#header');
-  $api.fixStatusBar(header);
-  if (api.systemType == 'ios') {
-      $api.fixIos7Bar(header);
-  }
-  $api.fixStatusBar(header);
-  api.setStatusBarStyle({
-      style: 'light'
-  });
+      var header = $api.dom('header') ;
+      $api.fixStatusBar(header);
+      if (api.systemType == 'ios') {
+          $api.fixIos7Bar(header);
+      }
+      $api.fixStatusBar(header);
+      api.setStatusBarStyle({
+          style: 'dark'
+      });
         funIniGroup();
+        initTri();
     }
 
     function funIniGroup(){
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
-        for (var i = 0,len = eHeaderLis.length; i < len; i++) {
+        for (var i = 0,len = eHeaderLis.length+1; i < len; i++) {
                 frames.push( {
                     name: 'frame'+i,
                     url: './html/frame'+i+'.html',
@@ -112,7 +147,7 @@
             scrollEnabled: false,
             rect: {
                 x: 0,
-                y: $api.dom('header').offsetHeight,
+                y: $api.dom('header').offsetHeight+1,
                 w: api.winWidth,
                 h: $api.dom('#main').offsetHeight
             },
@@ -122,7 +157,50 @@
 
         });
     }
+    function randomSwitchTitle(tag){
+      if(tag == $api.dom('header-map.active')||(tag == $api.dom('header-dymc.active'))) return;
+      var eHeaderMap = $api.dom('.header-map');
+      var eHeaderDymc = $api.dom('.header-dymc');
+      console.log(eHeaderMap);
+      if(tag == eHeaderMap){
+        $api.removeCls(eHeaderDymc, 'active');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: 0,
+            scroll: true
+        });
+        transTri(0);
+      }
+      else {
+        $api.removeCls(eHeaderMap, 'active');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: 1,
+            scroll: true
+        });
+        transTri(1);
+      }
+      $api.addCls(tag, 'active');
+    }
 
+    function initTri(){
+      var tri = $api.dom('.tri');
+      var wid = $api.dom('.header-map');
+      tri.style.left = (wid.offsetWidth-20)/2 + 'px';
+    }
+    function transTri(status){
+      var tri = $api.dom('.tri');
+      var wid = $api.dom('.header-map').offsetWidth;
+      tri.style.transition="-webkit-transform 500ms";
+      if(status==1){
+        tri.style.webkitTransform = "translateX("+ wid +"px)";
+
+      }
+      else{
+
+          tri.style.webkitTransform = "translateX(0px)";
+      }
+    }
     // 随意切换按钮
     function randomSwitchBtn( tag ) {
         if( tag == $api.dom('#footer li.active') )return;
@@ -139,9 +217,21 @@
         }
         $api.addCls( eFootLis[index], 'active');
         $api.addCls( eHeaderLis[index], 'active');
+        if(index==0){
+          if($api.dom('.header-map.active'))
+            index--;
+        }
+        else{
+          api.setStatusBarStyle({
+              style: 'dark',
+              color: '#fff'
+          });
+        }
+        index++;
         api.setFrameGroupIndex({
             name: 'group',
-            index: index
+            index: index,
+            scroll: true
         });
     }
 </script>
