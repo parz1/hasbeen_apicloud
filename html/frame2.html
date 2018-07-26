@@ -53,14 +53,53 @@ apiready = function(){
 function init(){
   datas = [
     {
-      "title":"港岛记"
-    }
+      "title":"港岛记",
+      "position":"香港",
+      "content":"safjeiarjsifldiaruiejsfildjsairlejsilfjdilsajerisuali",
+      "height":"100"
+    },
+    {
+      "title":"港岛记",
+      "position":"香港",
+      "content":"safjeiarjsifldiaruiejsfildjsairlejsilfjdilsajerisuali",
+      "height":"200"
+    },
+    {
+      "title":"港岛记",
+      "position":"香港",
+      "content":"safjeiarjsifldiaruiejsfildjsairlejsilfjdilsajerisuali",
+      "height":"150"
+    },
+    {
+      "title":"港岛记",
+      "position":"香港",
+      "content":"safjeiarjsifldiaruiejsfildjsairlejsilfjdilsajerisuali",
+      "height":"130"
+    },
+    {
+      "title":"港岛记",
+      "position":"香港",
+      "content":"safjeiarjsifldiaruiejsfildjsairlejsilfjdilsajerisuali",
+      "height":"90"
+    },
   ];
 }
 
-function waterfall(){
-
+function beALi(ele){
+  var el = document.createElement('li');
+  el.style.width=""
 }
+
+function waterfall(ele,imgpos){
+  var leftul = $api.dom('.leftWaterFall');
+  var rightul = $api.dom('.rightWaterFall');
+  for(var i=0;i<ele.length;i++){
+    if(leftul.offsetHeight<rightul.offsetHeight){
+      beali(ele[i])
+    }
+  }
+}
+
 
 </script>
 </html>
