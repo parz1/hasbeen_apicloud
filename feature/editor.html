@@ -22,23 +22,19 @@
 			padding: 10px;
     		color: #444;
 		}
-    header{
-      position: fixed;
+    #nav{
       top: 0;
-      height: 40px;
+      height: 80px;
       width: 100%;
       background-color: #eee;
-    }
-    .content{
-      height: 1000px;
     }
     </style>
 </head>
 <body>
-      <header id="meditToolBar">
+      <div id="nav">
 
-      </header>
-      <div id="article-body" class="content">
+      </div>
+      <div id="article-body" class="content" autofocus="autofocus">
 
       </div>
 </body>
@@ -50,12 +46,13 @@ var artEditor = new Eleditor({
 						el: '#article-body',
 						upload:{
 							server: '/upload.php',
-							fileSizeLimit: 2
+							fileSizeLimit: 3
 						}
 					});
 
-function openEditWin(){
-
+function completeEdit(){
+  alert(artEditor.getContent());
+  artEditor.append(artEditor.getContent());
 }
 
 </script>
