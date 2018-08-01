@@ -15,6 +15,9 @@
     <script src="../res/Eleditor-master/Eleditor.js"></script>
     <style>
     *{margin: 0;padding: 0;}
+    ul li{
+      list-style: none;
+    }
     #article-body{
 			width: 100%;
 			min-height: 300px;
@@ -24,15 +27,25 @@
 		}
     #nav{
       top: 0;
-      height: 80px;
+      height: 50px;
       width: 100%;
       background-color: #eee;
+    }
+    .back{
+      float: left;
+      width: 30px;
+      height: 50px;
+      line-height: 50px;
+      background-color: #090;
     }
     </style>
 </head>
 <body>
       <div id="nav">
-
+        <span class="back">返回</span>
+        <ul>
+          <li></li>
+        </ul>
       </div>
       <div id="article-body" class="content" autofocus="autofocus">
 

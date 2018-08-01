@@ -104,7 +104,6 @@
         </ul>
     </header>
     <div id="main" class="flex-con">
-
     </div>
     <div id="footer" class="border-t">
         <ul class="flex-wrap" >
@@ -119,6 +118,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+//var arcMenu;
     apiready = function () {
       var header = $api.dom('header') ;
       $api.fixStatusBar(header);
@@ -132,6 +132,7 @@
         funIniGroup();
         initTri();
     }
+
 
     function funIniGroup(){
         var eHeaderLis = $api.domAll('header li'),
@@ -236,4 +237,5 @@
             scroll: true
         });
     }
+
 </script>
