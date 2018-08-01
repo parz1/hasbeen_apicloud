@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Editor</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <!-- 引入jQuery -->
+    <script src="../res/Eleditor-master/jquery.min.js"></script>
+	  <!-- 引入百度上传插件 -->
+    <script src="../res/Eleditor-master/webuploader.min.js"></script>
+    <!-- 插件核心 -->
+    <script src="../res/Eleditor-master/Eleditor.js"></script>
+    <style>
+    *{margin: 0;padding: 0;}
+    #article-body{
+			width: 100%;
+			min-height: 300px;
+			box-sizing: border-box;
+			padding: 10px;
+    		color: #444;
+		}
+    header{
+      position: fixed;
+      top: 0;
+      height: 40px;
+      width: 100%;
+      background-color: #eee;
+    }
+    .content{
+      height: 1000px;
+    }
+    </style>
+</head>
+<body>
+      <header id="meditToolBar">
+
+      </header>
+      <div id="article-body" class="content">
+
+      </div>
+</body>
+<script type="text/javascript">
+apiready = function(){
+  document.getElementById("article-body").contentEditable=true;
+}
+var artEditor = new Eleditor({
+						el: '#article-body',
+						upload:{
+							server: '/upload.php',
+							fileSizeLimit: 2
+						}
+					});
+
+function openEditWin(){
+
+}
+
+</script>
+</html>
