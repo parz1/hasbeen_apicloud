@@ -25,45 +25,76 @@
 			padding: 10px;
     		color: #444;
 		}
+    #article-body img{
+      width: 100%;
+    }
     #nav{
       top: 0;
-      height: 50px;
+      height: 70px;
       width: 100%;
-      background-color: #eee;
+      background-color: #fff;
+      position: fixed;
+      opacity: 0.7;
     }
-    .back{
-      float: left;
-      width: 30px;
+    .save{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 20px;
+    }
+    .title{
+      margin-top: 75px;
+      width: 100%;
+    }
+    .title input{
+      display: inline-block;
+      width: 90%;
       height: 50px;
-      line-height: 50px;
-      background-color: #090;
+      font-size: 40px;
+      padding: 10px;
+      outline: 0;
+      color: #000;
     }
     </style>
 </head>
 <body>
       <div id="nav">
-        <span class="back">返回</span>
-        <ul>
-          <li></li>
-        </ul>
+        <div class="back" onclick="closeMyWin();"></div>
+        <div class="save" onclick="saveEditor();">
+          保存
+        </div>
+      </div>
+      <div class="title">
+        <input type="text" name="title"placeholder="标题">
       </div>
       <div id="article-body" class="content" autofocus="autofocus">
 
       </div>
 </body>
+<script src="../script/api.js" charset="utf-8"></script>
+<script src="../script/data.js" charset="utf-8"></script>
 <script type="text/javascript">
 apiready = function(){
-  document.getElementById("article-body").contentEditable=true;
+  $api.dom('#article-body').contentEditable=true;
 }
 var artEditor = new Eleditor({
 						el: '#article-body',
 						upload:{
-							server: '/upload.php',
-							fileSizeLimit: 3
+							server: myurl+'imgUploadServlet',
+							fileSizeLimit: 5
 						}
 					});
-
-function completeEdit(){
+function closeEditor(){
+  api.closeWin({
+    name:'editor',
+    animatino:{
+      type:"push",
+      subType:"from_left",
+      duration:300
+    }
+  });
+}
+function saveEditor(){
   alert(artEditor.getContent());
   artEditor.append(artEditor.getContent());
 }

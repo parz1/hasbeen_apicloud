@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Submit</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    /* form */
+    body{
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+    	align-items: center;
+    	flex-direction: column;
+    }
+    .myForm {
+    	text-align: left;
+    	display: flex;
+    	flex-direction: column;
+    	width: 60%;
+    }
+    .myForm h2{
+    	margin-bottom: 20px;
+    }
+    .myForm label{
+    	width: 40%;
+    }
+    .myForm span{
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .myForm input{
+    	margin: 5px 0;
+    	outline: 0;
+    	width: 100%;
+    	height: 40px;
+    	padding-left: 10px;
+    	border: none;
+    	border-bottom: 1px solid #666;
+    	box-shadow: 0 0 0;
+    	border-radius: 0;
+    }
+    .success{
+      color: #096;
+    }
+    .error{
+      color: #F00;
+    }
+    .myForm button{
+    	border: 0;
+    	background-color: #6495ed;
+    	width: 50%;
+    	margin-left: 25%;
+    	margin-top: 20px;
+    	height: 40px;
+    	color: #fff;
+    	font-size: 16px;
+    	transform: skew(-15deg);
+    	box-shadow: 5px 5px 0 #666;
+      outline: 0;
+    }
+    </style>
+</head>
+<body>
+  <div class="back" onclick="javascript:closeMyWin();"></div>
+  <div class="myForm">
+      <h1>潮人去哪</h1>
+      <h3>Hasbeen</h3>
+      <h2>注册</h2>
+      <span></span>
+      <label for="account">Account:</label>
+      <input type="text" id="account" onblur="checkName();">
+      <label for="pwd">password</label>
+      <input type="password" id="pwd" onblur="checkPwd();">
+      <label for="email">email</label>
+      <input type="email" name="email" id="email" onblur="checkEmail();">
+      <button onclick="javascript:submitAjax();">注册</button>
+    </div>
+</body>
+<script src="../script/api.js" charset="utf-8"></script>
+<script src="../script/data.js" charset="utf-8"></script>
+<script type="text/javascript">
+function checkName(){
+  var username = document.getElementById('account');
+  var errname = $api.dom('.myForm span');
+  var pattern = /^\w{3,}$/;  //用户名格式正则表达式：用户名要至少三位
+  if(username.value.length == 0){
+    errname.innerHTML="用户名不能为空"
+    $api.addCls(errname,'error');
+    $api.addCls(username,'error');
+    return false;
+    }
+  if(!pattern.test(username.value)){
+    errname.innerHTML="用户名不合规范"
+    $api.addCls(errname,'error');
+    $api.addCls(username,'error');
+    return false;
+    }
+   else{
+     errname.innerHTML="OK!"
+     $api.removeCls(username,'error');
+     $api.removeCls(errname,'error');
+     $api.addCls(errname,'success');
+     return true;
+     }
+  }
+  function checkPwd(){
+    var username = document.getElementById('pwd');
+    var errname = $api.dom('.myForm span');
+    var pattern = /^\w{6,20}$/;  //用户名格式正则表达式：用户名要至少三位
+    if(!pattern.test(username.value)){
+      errname.innerHTML="密码不合规范"
+      $api.addCls(errname,'error');
+      $api.addCls(username,'error');
+      return false;
+      }
+     else{
+       errname.innerHTML="OK!"
+       $api.removeCls(username,'error');
+       $api.removeCls(errname,'error');
+       $api.addCls(errname,'success');
+       return true;
+       }
+    }
+    function checkEmail(){
+      var username = document.getElementById('email');
+      var errname = $api.dom('.myForm span');
+      var pattern = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;  //用户名格式正则表达式：用户名要至少三位
+      if(username.value.length == 0){
+        errname.innerHTML="邮箱不能为空"
+        $api.addCls(errname,'error');
+        $api.addCls(username,'error');
+        return false;
+        }
+      if(!pattern.test(username.value)){
+        errname.innerHTML="邮箱不合规范"
+        $api.addCls(errname,'error');
+        $api.addCls(username,'error');
+        return false;
+        }
+       else{
+         errname.innerHTML="OK!"
+         $api.removeCls(username,'error');
+         $api.removeCls(errname,'error');
+         $api.addCls(errname,'success');
+         return true;
+         }
+      }
+function checked(){
+  if(checkName()&&checkPwd()&&checkEmail()){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+function submitAjax(){
+  if(!checked()){
+    return;
+  }
+  api.ajax({
+      url: myurl+'register.html',
+      method: 'post',
+      dataType: 'json',
+      data: {
+          values: {
+              account: document.getElementById('account').value,
+              pwd:document.getElementById('pwd').value,
+              email:document.getElementById('email').value
+          }
+      }
+  },function(ret, err){
+      if (ret) {
+        if(ret.status=='1'){
+          $api.dom('.myForm span').innerHTML="注册成功！";
+          closeMyWin();
+        }
+        else {
+          var errname = $api.dom('.myForm span');
+          $api.removeCls(errname,'success');
+          $api.addCls(errname,'error');
+          errname.innerHTML="此用户名已被注册！";
+        }
+      } else {
+          alert( JSON.stringify( err ));
+      }
+  });
+}
+
+</script>
+</html>

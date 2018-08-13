@@ -12,3 +12,13 @@ html,body {  font-size:14px; height:100%;  }
 .border-b:after{ top:auto; bottom:0;  }
 
 #wrap{ height: 100%; }
+
+.back{
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  top: 20px;
+  left: 20px;
+  background-image: url(../icon/back.png);
+  background-size: cover;
+}

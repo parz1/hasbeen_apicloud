@@ -8,44 +8,105 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     <style>
-    .iconhead{
+    /* form */
+    body{
       width: 100%;
-      background-color: #eee;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+    	align-items: center;
+    	flex-direction: column;
     }
-    .input{
+    .myForm {
+    	text-align: left;
+    	display: flex;
+    	flex-direction: column;
+    	width: 60%;
+    }
+    .myForm h2{
+    	margin-bottom: 20px;
+    }
+    .myForm label{
+    	width: 100%;
+    }
+    .myForm input{
+    	margin: 5px 0;
+    	outline: 0;
+    	width: 100%;
+    	height: 40px;
+    	padding-left: 10px;
+    	border: none;
+    	border-bottom: 1px solid #666;
+    	box-shadow: 0 0 0;
+    	border-radius: 0;
+    }
+    .myForm button{
+    	border: 0;
+    	background-color: #6495ed;
+    	width: 50%;
+    	margin-left: 25%;
+    	margin-top: 20px;
+    	height: 40px;
+    	color: #fff;
+    	font-size: 16px;
+    	transform: skew(-15deg);
+    	box-shadow: 5px 5px 0 #666;
       outline: 0;
-      margin-top: 10px;
-      display: inline-block;
-      width: 100%;
-      height: 50px;
-      font-size: 30px;
-      border-bottom: 1px solid #666;
-    }
-    .btn{
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #eee;
-      border: 1 solid #666;
     }
     </style>
 </head>
 <body>
-      <input class="input" type="text" name="input" value="" placeholder="请输入标题">
-      <button class="btn" type="button" name="button"></button>
-      <div class="editor">
-
-      </div>
+  <div class="back" onclick="javascript:closeMyWin();"></div>
+  <div class="myForm">
+      <h1>潮人去哪</h1>
+      <h3>Hasbeen</h3>
+      <h2>登陆</h2>
+      <label for="account">Account:</label>
+      <input type="text" id="account">
+      <label for="pwd">Password:</label>
+      <input type="password" id="pwd">
+      <button onclick="javascript:submitAjax();">登陆</button>
+      <button onclick="javascript:openRegister();">注册</button>
+    </div>
 </body>
+<script src="../script/data.js" charset="utf-8"></script>
 <script type="text/javascript">
 apiready = function(){
 
 }
 
-function openEditWin(){
-  api.openWin({
-    names2`
+function submitAjax(){
+  api.ajax({
+      url: myurl+"submit.html",
+      method: 'post',
+      dataType: 'json',
+      data: {
+          values: {
+              account: document.getElementById('account').value,
+              pwd:document.getElementById('pwd').value
+          }
+      }
+  },function(ret, err){
+      if (ret) {
+          alert("登陆成功！");
+          closeMyWin();
+      } else {
+          alert( JSON.stringify( err ));
+      }
   });
+}
+
+function openRegister(){
+  openMyWin('register','./register.html');
 }
 
 </script>

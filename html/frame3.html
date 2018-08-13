@@ -11,9 +11,36 @@
     </style>
 </head>
 <body>
+  <button type="button" name="button" onclick="javascript:openEditor();">添加</button>
+  <button type="button" name="button" onclick="javascript:openSubmit();">登陆</button>
 </body>
 <script type="text/javascript">
+apiready=function(){
 
+}
+function openEditor(){
+  api.openWin({
+    name:'editor',
+    url:'../feature/editor.html',
+    animation:{
+      type:"movein",
+      subType:"from_right",
+      duration:300
+    }
+  });
+}
+
+function openSubmit(){
+  api.openWin({
+    name:'editor',
+    url:'../feature/submit.html',
+    animation:{
+      type:"movein",
+      subType:"from_right",
+      duration:300
+    }
+  });
+}
 
 </script>
 </html>
