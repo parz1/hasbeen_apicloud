@@ -38,7 +38,7 @@
     }
     .save{
       position: fixed;
-      top: 20px;
+      top: 40px;
       right: 20px;
       font-size: 20px;
     }
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="title">
-        <input type="text" name="title"placeholder="标题">
+        <input type="text" name="title"placeholder="标题" id="title">
       </div>
       <div id="article-body" class="content" autofocus="autofocus">
 
@@ -77,6 +77,7 @@
 apiready = function(){
   $api.dom('#article-body').contentEditable=true;
 }
+var editStus = false;
 var artEditor = new Eleditor({
 						el: '#article-body',
 						upload:{
@@ -95,8 +96,49 @@ function closeEditor(){
   });
 }
 function saveEditor(){
-  alert(artEditor.getContent());
-  artEditor.append(artEditor.getContent());
+  //alert(artEditor.getContent());
+  $api.setStorage('content', artEditor.getContent());
+  $api.setStorage('title', $api.dom('#title').value);
+
+  if(!editStus){
+    api.openWin({
+        name: 'upload',
+        url: './upload.html',
+        pageParam: {
+            editStus: editStus
+        },
+
+    });
+
+  }
+  editStus=true;
+  // api.ajax({
+  //     url: myurl+'uploadNote.html',
+  //     method: 'post',
+  //     data: {
+  //         values: {
+  //             token: $api.getStorage('token'),
+  //             title: $api.dom('#title').value,
+  //             content: artEditor.getContent(),
+  //         },
+  //     }
+  // },function(ret, err){
+  //     if (ret) {
+  //         if(ret.status!="1"){
+  //           api.openWin({
+  //               name: 'submit',
+  //               url: './submit.html',
+  //               pageParam: {
+  //               }
+  //           });
+  //
+  //         }
+  //     } else {
+  //         alert( JSON.stringify( err ) );
+  //     }
+  // });
+
+
 }
 
 </script>

@@ -11,9 +11,6 @@
         header{ background-color: #fff;z-index: 999;border: 0;}
         header ul li{ height: 40px; line-height: 40px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px; border: 0; }
         header ul li.active{ display: block; position: relative;}
-        .usertitle{
-          background-color: #eee;
-        }
         #footer{  background-color: #f2f2f2; box-shadow: 0 2px 2px #666; }
         #footer ul li{  padding-top: 36px; padding-bottom: 4px; background: url() no-repeat center 2px; background-size: auto 30px; text-align: center;}
         #footer ul li.active{ color: #6495ED; }
@@ -73,8 +70,7 @@
           color: #6495ED;
         }
         #main{
-          z-index: 99999;
-          overflow: visible;
+          z-index: -1;
         }
     </style>
 </head>
@@ -95,11 +91,7 @@
               </div>
             </li>
             <li class="border-b" >发现</li>
-            <li class="border-b" >
-              <div class="usertitle">
-              搜索
-              </div>
-            </li>
+            <li class="border-b" >好友</li>
             <li class="border-b" >用户中心</li>
         </ul>
     </header>
@@ -117,6 +109,7 @@
 </body>
 </html>
 <script type="text/javascript" src="script/api.js"></script>
+<script src="script/data.js" charset="utf-8"></script>
 <script type="text/javascript">
     apiready = function () {
       var header = $api.dom('header') ;
@@ -130,6 +123,46 @@
       });
         funIniGroup();
         initTri();
+        var button = api.require('UIButton');
+        button.open({
+            rect: {
+                x: $api.dom('header').offsetWidth-70,
+                y: $api.dom('#main').offsetHeight-10,
+                w: 50,
+                h: 50
+            },
+            corner: 25,
+            bg: {
+                normal: '#6495ED',
+                highlight: '#6495ED',
+                active: '#6495ED'
+            },
+            title: {
+                size: 25,
+                highlight: '',
+                active: '',
+                normal: '+',
+                highlightColor: '#fff',
+                activeColor: '#fff',
+                normalColor: '#fff',
+                alignment: 'center'
+            },
+            fixedOn: api.frameName,
+            fixed: true,
+        }, function(ret, err) {
+            if (ret.eventType=='click') {
+                api.openWin({
+                    name: 'editor',
+                    url: './feature/editor.html',
+                    pageParam: {
+                        name: ''
+                    }
+                });
+
+            } else {
+              //  console.log(JSON.stringify(err));
+            }
+        });
     }
 
     function funIniGroup(){
@@ -235,5 +268,8 @@
             scroll: true
         });
     }
+
+
+
 
 </script>

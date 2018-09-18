@@ -78,9 +78,13 @@
       <button onclick="javascript:openRegister();">注册</button>
     </div>
 </body>
+<script src="../script/api.js" charset="utf-8"></script>
 <script src="../script/data.js" charset="utf-8"></script>
 <script type="text/javascript">
 apiready = function(){
+  var account = $api.getStorage('account');
+  if(account)
+    $api.dom("#account").value=account;
 
 }
 
@@ -91,16 +95,28 @@ function submitAjax(){
       dataType: 'json',
       data: {
           values: {
-              account: document.getElementById('account').value,
-              pwd:document.getElementById('pwd').value
+              account: $api.dom('#account').value,
+              pwd: $api.dom('#pwd').value
           }
       }
   },function(ret, err){
       if (ret) {
           alert("登陆成功！");
-          closeMyWin();
+          $api.setStorage('token', ret.token);
+          $api.setStorage('account', $api.dom("#account").value);
+
+
+          api.openWin({
+              name: 'index',
+              url: '../index.html',
+              reload:true,
+              pageParam: {
+                  name: 'test'
+              }
+          });
+
       } else {
-          alert( JSON.stringify( err ));
+          console.log( JSON.stringify( err ));
       }
   });
 }

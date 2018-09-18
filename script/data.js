@@ -1,9 +1,9 @@
-var myurl="http://192.168.0.109:8080/test/";
-var user_status=0;
+var myurl="http://192.168.0.100:8080/test/";
 
 apiready = function(){
 
 }
+var myNotes
 
 function openMyWin(name,add){
   api.openWin({

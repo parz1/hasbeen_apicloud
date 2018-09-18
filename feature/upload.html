@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Submit</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    /* form */
+    body{
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+    	align-items: center;
+    	flex-direction: column;
+    }
+    .share{
+      width: 50px;
+      height: 50px;
+      background-color: #666;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      padding: 10px;
+    }
+    .coverUpload{
+      width: 100px;
+      height: 50px;
+    }
+    </style>
+</head>
+<body>
+  <div class="back" onclick="javascript:closeMyWin();"></div>
+  <div class="coverUpload">
+    上传封面
+  </div>
+  <div class="share" onclick="javascript:upload();">
+  </div>
+</body>
+<script src="../script/api.js" charset="utf-8"></script>
+<script src="../script/data.js" charset="utf-8"></script>
+<script type="text/javascript">
+apiready = function(){
+
+}
+function upload(){
+  api.ajax({
+      url: myurl + 'uploadNote.html',
+      method: 'post',
+      dataType: 'json',
+      data: {
+          values: {
+              token: $api.getStorage('token'),
+              title: $api.getStorage('title'),
+              content: $api.getStorage('content')
+          },
+      }
+  },function(ret, err){
+      if (ret) {
+          alert( JSON.stringify( ret ) );
+      } else {
+          alert( JSON.stringify( err ) );
+      }
+  });
+
+}
+</script>
+</html>

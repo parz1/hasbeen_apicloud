@@ -43,12 +43,12 @@
       font-weight: 300;
       color: #666;
       font-size: 30px;
-      margin-top: 6%;
+      margin-top: 20px;
       font-family: sans-serif;
     }
     .mes-nav{
       position: relative;
-      margin-top: 10px;
+      margin-top: 20px;
       width: 100%;
     }
     .mes-nav li{
@@ -66,7 +66,10 @@
       width: 50%;
       height: 2px;
       background-color: #666;
-      margin-top: 40px;
+      margin-top: 60px;
+    }
+    .underline{
+      text-decoration: underline;
     }
     </style>
 </head>
@@ -75,7 +78,7 @@
     <img class="imgbg" src="../image/bghead.png" alt="TITLE">
   </div>
   <img class="iconhead" src="../image/bgpic.png" alt="icon">
-  <div class="username">parzi</div>
+  <div class="username"></div>
     <ul class="mes-nav">
       <li>帖子</li>
       <li>收藏</li>
@@ -84,9 +87,54 @@
     <div style="height:900px;">
     </div>
 </body>
+<script src="../script/api.js" charset="utf-8"></script>
+<script src="../script/data.js" charset="utf-8"></script>
 <script type="text/javascript">
 apiready = function(){
 
+
+  var token = $api.getStorage('token');
+  if(token){
+    //console.log(token);
+    api.ajax({
+        url: myurl+'getMyInfo.html',
+        method: 'post',
+        dataType: 'json',
+        data: {
+          values:{
+            'token':token
+          }
+        }
+    },function(ret, err){
+        if (ret) {
+          if(ret.nickname!=null)
+            $api.dom('.username').innerHTML=ret.nickname;
+          else {
+            $api.dom('.username').innerHTML=ret.account;
+          }
+
+        } else {
+            console.log( JSON.stringify( err ) );
+        }
+    });
+
+
+  }
+  else{
+    var username = $api.dom('.username');
+    username.innerHTML="未登录";
+    $api.addCls(username, 'underline');
+    username.addEventListener('click',function(){
+      api.openWin({
+          name: 'submit',
+          url: '../feature/submit.html',
+          pageParam: {
+              name: ''
+          }
+      });
+
+    });
+  }
 }
 
 </script>

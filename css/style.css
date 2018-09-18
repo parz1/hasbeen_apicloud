@@ -17,7 +17,7 @@ html,body {  font-size:14px; height:100%;  }
   position: fixed;
   width: 30px;
   height: 30px;
-  top: 20px;
+  top: 40px;
   left: 20px;
   background-image: url(../icon/back.png);
   background-size: cover;
